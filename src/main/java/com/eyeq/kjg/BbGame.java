@@ -1,5 +1,7 @@
 package com.eyeq.kjg;
 
+import java.util.Scanner;
+
 public class BbGame {
 
 	public static void main(String[] args) {
@@ -7,6 +9,9 @@ public class BbGame {
 	}
 
 	public String generateNumber;
+
+	// 입력 횟수 제한
+	public static final int LIMITED = 10;
 
 	public void guess(String inputNumber) {
 		if (inputNumber == null) {
@@ -29,19 +34,20 @@ public class BbGame {
 		}
 	}
 
-	public void guessResult(String inputNumber, GuessResolve guessResolve) {
+	public void guessResult(String inputNumber, String randomNumber) {
+		BbGame bbGame = new BbGame();
 		int strike = 0;
 		int ball = 0;
 		boolean result = false;
-		String randomValue = "123";
 
 		// 스트라이크와 볼 체크
 		for (int i = 0; i < inputNumber.length(); i++) {
-			if (randomValue.charAt(i) == inputNumber.charAt(i)) {
+			if (randomNumber.charAt(i) == inputNumber.charAt(i)) {
 				strike++;
 			}
 			for (int j = 0; j < inputNumber.length(); j++) {
-				if (randomValue.charAt(i) != inputNumber.charAt(i) && randomValue.charAt(i) == inputNumber.charAt(j)) {
+				if (randomNumber.charAt(i) != inputNumber.charAt(i)
+						&& randomNumber.charAt(i) == inputNumber.charAt(j)) {
 					ball++;
 				}
 			}
@@ -50,16 +56,21 @@ public class BbGame {
 		if (strike == 3) {
 			result = true;
 		}
-
-		// 예상되는 결과값이 매치가 되는지 확인
-		if (guessResolve.getStrike() != strike || guessResolve.getBall() != ball || guessResolve.isResult() != result) {
-
-			throw new IllegalArgumentException("잘못된 결과 값입니다.");
-		}
-
-		System.out.println("strike : " + strike + " ball : " + ball);
-		System.out.println("다시시작");
-
+		bbGame.guessResolve(result, new Strike(strike), new Ball(ball));
 	}
 
+	// 비교 결과
+	private void guessResolve(boolean result, Strike strike, Ball ball) {
+		if (result && strike.getValue() == 3 && ball.getValue() == 0) {
+			System.out.println("승리하였습니다.");
+		} else {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("다시 숫자를 입력하세요");
+		}
+	}
+
+	public void limitOfInputNumber(String inputNumber, String randomNumber) {
+		
+		
+	}
 }
