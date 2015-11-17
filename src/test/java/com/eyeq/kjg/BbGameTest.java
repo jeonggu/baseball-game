@@ -43,7 +43,7 @@ public class BbGameTest {
 		// 사용자 입력
 		// 숫자 비교
 		// 비교 결과
-		
+
 		GuessResolve oneStrikeTwoBall = new GuessResolve(false, 1, 2);
 		GuessResolve threeStrike = new GuessResolve(true, 3, 0);
 		GuessResolve out = new GuessResolve(false, 0, 0);
