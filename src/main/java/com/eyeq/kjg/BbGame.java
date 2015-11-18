@@ -34,7 +34,8 @@ public class BbGame {
 		}
 	}
 
-	public void guessResult(String inputNumber, String randomNumber) {
+	// 스트라이크가 3개일 때 게임이 끝나는지 
+	public GuessResolve guessResult(String inputNumber) {
 		BbGame bbGame = new BbGame();
 		int strike = 0;
 		int ball = 0;
@@ -42,12 +43,12 @@ public class BbGame {
 
 		// 스트라이크와 볼 체크
 		for (int i = 0; i < inputNumber.length(); i++) {
-			if (randomNumber.charAt(i) == inputNumber.charAt(i)) {
+			if (generateNumber.charAt(i) == inputNumber.charAt(i)) {
 				strike++;
 			}
 			for (int j = 0; j < inputNumber.length(); j++) {
-				if (randomNumber.charAt(i) != inputNumber.charAt(i)
-						&& randomNumber.charAt(i) == inputNumber.charAt(j)) {
+				if (generateNumber.charAt(i) != inputNumber.charAt(i)
+						&& generateNumber.charAt(i) == inputNumber.charAt(j)) {
 					ball++;
 				}
 			}
@@ -56,20 +57,11 @@ public class BbGame {
 		if (strike == 3) {
 			result = true;
 		}
-		bbGame.guessResolve(result, new Strike(strike), new Ball(ball));
+		
+		return new GuessResolve(result, new Strike(strike), new Ball(ball)); 
 	}
 
-	// 비교 결과
-	private void guessResolve(boolean result, Strike strike, Ball ball) {
-		if (result && strike.getValue() == 3 && ball.getValue() == 0) {
-			System.out.println("승리하였습니다.");
-		} else {
-			Scanner scanner = new Scanner(System.in);
-			System.out.println("다시 숫자를 입력하세요");
-		}
-	}
-
-	public void limitOfInputNumber(String inputNumber, String randomNumber) {
+	public void limitOfInputNumber(String inputNumber) {
 		
 		
 	}

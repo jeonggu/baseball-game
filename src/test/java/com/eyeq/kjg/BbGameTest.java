@@ -42,20 +42,12 @@ public class BbGameTest {
 		bbGame.generateNumber = "123";
 
 		// 사용자 입력
-		resultCheck(bbGame, "321", bbGame.generateNumber);
-		resultCheck(bbGame, "123", bbGame.generateNumber);
-		resultCheck(bbGame, "678", bbGame.generateNumber);
-
+		assertEquals(true, bbGame.guessResult("123").isResult());
+		assertEquals(3, bbGame.guessResult("123").getStrike().getValue());
+		assertEquals(0, bbGame.guessResult("123").getBall().getValue());
 	}
 
-	private void resultCheck(BbGame bbGame, String inputNumber, String randomNumber) {
-		try {
-			// 숫자 비교
-			bbGame.guessResult(inputNumber, randomNumber);
-		} catch (IllegalArgumentException e) {
-		}
-	}
-
+	// 사용자 입력 값 횟수제한 테스트
 	@Test
 	public void testlimitOfInputNumber() {
 		// 게임 생성
@@ -64,26 +56,13 @@ public class BbGameTest {
 		bbGame.generateNumber = "123";
 
 		// 사용자 입력
-		limitOfInputNumber(bbGame, "243", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "231", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "543", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "267", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "976", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "569", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "754", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "543", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "643", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "236", bbGame.generateNumber);
-		limitOfInputNumber(bbGame, "152", bbGame.generateNumber);
+		bbGame.limitOfInputNumber("243");
+		bbGame.limitOfInputNumber("231");
+		
+		// 게임 종료 플래그(
 
 	}
-
-	private void limitOfInputNumber(BbGame bbGame, String inputNumber, String randomNumber) {
-		try {
-			bbGame.limitOfInputNumber(inputNumber, randomNumber);
-		} catch (IllegalArgumentException e) {
-		}
-
-		// 설정 초과 시 (메세지출력)
-	}
+	
+	// 10번 시도중 맞췄을 때 게임 종료 테스트
+	
 }
