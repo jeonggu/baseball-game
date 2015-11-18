@@ -10,9 +10,6 @@ public class BbGame {
 
 	public String generateNumber;
 
-	// 입력 횟수 제한
-	public static final int LIMITED = 10;
-
 	public void guess(String inputNumber) {
 		if (inputNumber == null) {
 			throw new IllegalArgumentException("값을 입력해주세요.");
@@ -61,8 +58,8 @@ public class BbGame {
 		return new GuessResolve(result, new Strike(strike), new Ball(ball)); 
 	}
 
-	public void limitOfInputNumber(String inputNumber) {
-		
-		
+	// 결과값 리턴
+	public ConfigSetting resultOfWinORDefeat(boolean endGame) {
+		return new ConfigSetting(endGame);
 	}
 }
