@@ -1,6 +1,7 @@
 package com.eyeq.kjg;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -47,60 +48,33 @@ public class BbGameTest {
 		assertEquals(0, bbGame.guessResult("123").getBall().getValue());
 	}
 
-	// 사용자 입력 값 횟수제한 테스트
+	// 정해진 횟수만큼 사용자가 입력 했을 때 게임 종료 여부 테스트
 	@Test
-	public void testlimitOfInputNumber() {
-		// 게임 생성
+	public void test3() {
 		BbGame bbGame = new BbGame();
-		// 숫자 생성
 		bbGame.generateNumber = "123";
-		// 입력 횟수 제한(게임셋팅)
-		ConfigSetting setting = new ConfigSetting();
-		// 게임종료 플래그
-		boolean endGame = false;
-		// 사용자 입력 값
-		String[] inputNumber = { "324", "543", "456", "785", "231", "976", "675", "956", "765", "231" };
 
-		// 아홉번째일 때를 체크해서 10번째에도 맞추지 못하면 게임을 종료해야한다.
-		for (int i = 0; i < setting.getLimited(); i++) {
-			if (bbGame.generateNumber == inputNumber[i]) {
-				bbGame.resultOfWinORDefeat(true);
-			} else {
-				bbGame.resultOfWinORDefeat(false);
-			}
-
-			if (i == 9) {
-				assertEquals(false, setting.isEndGame());
-				// '패배하였습니다'란 메세지를 뿌리는 부분
-				break;
-			}
+		for (int i = 1; i <= 10; i++) {
+			bbGame.guessResult("456");
 		}
+
+		// assertTrue(bbGame.isGameOver());
 	}
 
-	// 10번 시도중 맞췄을 때 게임 종료 테스트
+	// 정해진 횟수만큼 사용자가 입력 했을 때 게임 종료 여부 테스트
+	// 10번 중에 맞추는 테스트도 포함
 	@Test
-	public void 열번시도중맞췄을때게임종료() {
-		// 게임 생성
+	public void 종료여부테스트() {
 		BbGame bbGame = new BbGame();
-		// 숫자 생성
 		bbGame.generateNumber = "123";
-		// 입력 횟수 제한(게임셋팅), 게임종료 플래그
-		ConfigSetting setting = new ConfigSetting();
-		// 사용자 입력 값
-		String[] inputNumber = { "324", "543", "456", "785", "123", "976", "675", "956", "765", "231" };
 
-		for (int i = 0; i < setting.getLimited(); i++) {
-			if (bbGame.generateNumber == inputNumber[i]) {
-				bbGame.resultOfWinORDefeat(true);
-			} else {
-				bbGame.resultOfWinORDefeat(false);
-			}
-
-			if (setting.isEndGame()) {
-				assertEquals(true, setting.isEndGame());
-				// '승리하였습니다'란 메세지를 뿌리는 부분
-				break;
-			}
-		}
+		Result result = bbGame.guessResult("123");
+		bbGame.isGameOver(result);
 	}
+
+	// 점수 1000점 이후는 한번당 100점씩 감점
+	// 10번째에서 맞추면 100점
+	// scroe 객체 생성
+	// 게임 점수 계산해주는 메소드만들고 테스트
+	// 게임이 종료 되었을 때 몇번째
 }

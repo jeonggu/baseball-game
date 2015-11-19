@@ -10,6 +10,8 @@ public class BbGame {
 
 	public String generateNumber;
 
+	public int nthGame;
+
 	public void guess(String inputNumber) {
 		if (inputNumber == null) {
 			throw new IllegalArgumentException("값을 입력해주세요.");
@@ -31,12 +33,14 @@ public class BbGame {
 		}
 	}
 
-	// 스트라이크가 3개일 때 게임이 끝나는지 
-	public GuessResolve guessResult(String inputNumber) {
+	// 스트라이크가 3개일 때 게임이 끝나는지
+	public Result guessResult(String inputNumber) {
 		BbGame bbGame = new BbGame();
 		int strike = 0;
 		int ball = 0;
 		boolean result = false;
+
+		nthGame++;
 
 		// 스트라이크와 볼 체크
 		for (int i = 0; i < inputNumber.length(); i++) {
@@ -54,12 +58,18 @@ public class BbGame {
 		if (strike == 3) {
 			result = true;
 		}
-		
-		return new GuessResolve(result, new Strike(strike), new Ball(ball)); 
+
+		return new Result(result, new Strike(strike), new Ball(ball));
 	}
 
-	// 결과값 리턴
-	public ConfigSetting resultOfWinORDefeat(boolean endGame) {
-		return new ConfigSetting(endGame);
+	public boolean isGameOver(Result result) {
+		if (result.isResult()) {
+			return true;
+		}
+		if (nthGame == 10) {
+			return true;
+		}
+
+		return false;
 	}
 }
