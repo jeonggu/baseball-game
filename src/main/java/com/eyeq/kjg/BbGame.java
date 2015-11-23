@@ -1,6 +1,6 @@
 package com.eyeq.kjg;
 
-import java.util.Scanner;
+import com.eyeq.kjg.strategy.GenerationNumberStrategy;
 
 public class BbGame {
 
@@ -11,6 +11,16 @@ public class BbGame {
 	public String generateNumber;
 
 	public int nthGame;
+
+	private GenerationNumberStrategy strategy;
+
+	public void startGame() {
+		generateNumber = strategy.generateNumber();
+	}
+
+	public void setStrategy(GenerationNumberStrategy strategy) {
+		this.strategy = strategy;
+	}
 
 	public void guess(String inputNumber) {
 		if (inputNumber == null) {
@@ -35,7 +45,6 @@ public class BbGame {
 
 	// 스트라이크가 3개일 때 게임이 끝나는지
 	public Result guessResult(String inputNumber) {
-		BbGame bbGame = new BbGame();
 		int strike = 0;
 		int ball = 0;
 		boolean result = false;
@@ -69,7 +78,7 @@ public class BbGame {
 		if (nthGame == 10) {
 			return true;
 		}
-
 		return false;
 	}
+
 }

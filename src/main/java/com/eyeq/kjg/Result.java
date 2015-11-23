@@ -5,6 +5,9 @@ public class Result {
 	private Strike strike;
 	private Ball ball;
 	
+	public Result() {
+		super();
+	}
 	public Result(boolean result, Strike strike, Ball ball) {
 		super();
 		this.result = result;
